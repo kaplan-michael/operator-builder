@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - builds.okderators.io
+  resources:
+  - recipes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - builds.okderators.io
+  resources:
+  - recipes/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - builds.okderators.io
+  resources:
+  - recipes/status
+  verbs:
+  - get
+  - patch
+  - update

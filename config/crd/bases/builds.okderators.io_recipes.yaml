@@ -1,0 +1,157 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.13.0
+  name: recipes.builds.okderators.io
+spec:
+  group: builds.okderators.io
+  names:
+    kind: Recipe
+    listKind: RecipeList
+    plural: recipes
+    singular: recipe
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Recipe is the Schema for the Recipe API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: RecipeSpec defines the desired state of Recipe
+            properties:
+              image:
+                description: ImageSpec defines the parameters for building an image
+                properties:
+                  baseImageRegistry:
+                    type: string
+                  dockerfile:
+                    type: string
+                  imageName:
+                    type: string
+                  repoRef:
+                    type: string
+                  repoURL:
+                    type: string
+                  version:
+                    type: string
+                required:
+                - baseImageRegistry
+                - dockerfile
+                - imageName
+                - repoRef
+                - repoURL
+                - version
+                type: object
+              operand:
+                description: OperandSpec defines the parameters for building the operand
+                properties:
+                  baseImageRegistry:
+                    type: string
+                  buildImage:
+                    type: string
+                  envMap:
+                    type: string
+                  imageName:
+                    type: string
+                  patches:
+                    items:
+                      description: Patch defines a patch which can be inline or referenced
+                        from a ConfigMap
+                      properties:
+                        configMap:
+                          type: string
+                        inline:
+                          type: string
+                        name:
+                          type: string
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  repoRef:
+                    type: string
+                  repoUrl:
+                    type: string
+                  version:
+                    type: string
+                required:
+                - repoRef
+                - repoUrl
+                type: object
+              operator:
+                description: OperatorSpec defines the parameters for building the
+                  operator
+                properties:
+                  baseImageRegistry:
+                    type: string
+                  buildImage:
+                    type: string
+                  channel:
+                    type: string
+                  defaultChannel:
+                    type: string
+                  envMap:
+                    type: string
+                  imageName:
+                    type: string
+                  patches:
+                    items:
+                      description: Patch defines a patch which can be inline or referenced
+                        from a ConfigMap
+                      properties:
+                        configMap:
+                          type: string
+                        inline:
+                          type: string
+                        name:
+                          type: string
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  repoRef:
+                    type: string
+                  repoUrl:
+                    type: string
+                  version:
+                    type: string
+                required:
+                - repoRef
+                - repoUrl
+                type: object
+            type: object
+          status:
+            description: RecipeStatus defines the observed state of BuildDefinition
+            properties:
+              error:
+                type: boolean
+              errorMessage:
+                type: string
+              lastBuildStatus:
+                type: string
+              lastBuildTime:
+                format: date-time
+                type: string
+              lastVersionBuilt:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

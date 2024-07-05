@@ -1,0 +1,11 @@
+apiVersion: builds.okderators.io/v1alpha1
+kind: Recipe
+metadata:
+  labels:
+    app.kubernetes.io/name: recipe-empty
+    app.kubernetes.io/instance: recipe-sample-empty
+    app.kubernetes.io/part-of: operator-builder
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: operator-builder
+  name: recipe-sample-empty
+spec:
